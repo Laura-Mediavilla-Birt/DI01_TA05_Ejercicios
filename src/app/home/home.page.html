@@ -1,0 +1,93 @@
+<!--
+  TAREA TA05 – HomePage
+  Implementa los TODOs siguiendo los apartados indicados en la teoría.
+-->
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+       Mi Aplicación
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- ===== TODO TA05 – Formulario reactivo ===================================
+       [formGroup] enlaza el <form> con el FormGroup definido en el componente.
+       (ngSubmit) se dispara al pulsar el botón de tipo "submit".
+       formControlName enlaza cada ion-input con su FormControl correspondiente.
+  =========================================================================== -->
+  <ion-card class="form-compacto">
+    <ion-card-header>
+      <ion-card-title>Formulario para añadir un elemento</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- TODO Añadimos [formGroup] al formulario y le asignamos nuestro FormGroup -->
+      <form [formGroup]="elementoForm" (ngSubmit)="agregarElemento()">
+
+        <!-- TODO TA05: formControlName="nombre" enlaza este input con
+             el FormControl "nombre" del FormGroup.
+             Al escribir, el FormControl se actualiza automáticamente. -->
+        <ion-input
+          label="Nombre"
+          labelPlacement="stacked"
+          placeholder="Nombre del elemento"
+          formControlName="nombre">
+        </ion-input>
+
+        <!-- TODO TA05: Al igual que con el nombre lo hacemos para "descripcion" -->
+        <ion-input
+          label="Descripción"
+          labelPlacement="stacked"
+          placeholder="Descripción del elemento"
+          formControlName="descripcion">
+        </ion-input>
+        
+        <!-- TODO TA05: "categoria" es opcional en el modelo -->
+        <ion-input
+          label="Categoría"
+          labelPlacement="stacked"
+          placeholder="Categoría (opcional)"
+          formControlName="categoria">
+        </ion-input>
+
+        <!-- TODO TA05: type="submit" lanza (ngSubmit) del <form> -->
+        <ion-button expand="block" type="submit">
+          Añadir elemento
+        </ion-button>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+  <!-- ===== FIN formulario reactivo ========================================== -->
+
+  <hr class="separador" />
+
+  <ion-item>
+    <ion-input [value]="busqueda()" (ionInput)="busqueda.set($event.detail.value ?? '')" placeholder="Buscar elemento..."></ion-input>
+  </ion-item>
+
+  <ion-list>
+    @for (elemento of elementosFiltrados(); track elemento.id) {
+      <ion-item button="true" (click)="verDetalle(elemento)">
+        <ion-label>
+          <h2>{{ elemento.nombre }}</h2>
+          <p>{{ elemento.descripcion }}</p>
+        </ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-button expand="block" [disabled]="!hayElementos()" (click)="mostrarToast()">
+    Mostrar mensaje
+  </ion-button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer Tarea TA05 - Formularios Reactivos</ion-title>
+  </ion-toolbar>
+</ion-footer>
