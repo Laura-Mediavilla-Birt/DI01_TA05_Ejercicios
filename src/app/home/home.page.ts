@@ -72,7 +72,7 @@ export class HomePage {
     categoria: ['']
   });
 
-  // TODO TA05 – Getters para facilitar el acceso a cada FormControl.
+  // Getters para facilitar el acceso a cada FormControl.
   get nombre() {
     return this.elementoForm.get('nombre')!;
   }
